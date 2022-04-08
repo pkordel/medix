@@ -57,7 +57,7 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
   # Suppress logger output for asset requests.
-  config.assets.quiet = true
+  # config.assets.quiet = true
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
@@ -67,4 +67,17 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # Disable asset pipeline
+  config.assets.enabled = false
+
+  # generate full urls using the base url configuration setting.
+  Rails.application.routes.default_url_options = default_url_options_from_base_url
+  config.action_mailer.default_url_options = default_url_options_from_base_url
+
+  # allow users to access this application via the configured application domain.
+  config.hosts << default_url_options_from_base_url[:host]
+
+  config.action_mailer.delivery_method = :letter_opener
+  config.active_job.queue_adapter = :sidekiq
 end

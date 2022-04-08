@@ -90,4 +90,14 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.active_job.queue_adapter = :sidekiq
+
+  if ENV["AWS_S3_BUCKET"].present?
+    config.active_storage.service = :amazon
+  end
+
+  # generate full urls using the base url configuration setting.
+  Rails.application.routes.default_url_options = default_url_options_from_base_url
+  config.action_mailer.default_url_options = default_url_options_from_base_url
 end

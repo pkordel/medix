@@ -20,9 +20,10 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 
 gem "redis", "~> 4.0"
+gem "hiredis"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
-# gem "kredis"
+gem "kredis"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -52,9 +53,25 @@ end
 group :development do
   gem "web-console"
   gem "rack-mini-profiler"
+  gem "letter_opener"
 end
 
 group :test do
+  gem "capybara"
+  gem "capybara-email"
+  gem "selenium-webdriver"
+  gem "webdrivers"
   gem "database_cleaner"
   gem "factory_bot_rails"
 end
+
+group "production" do
+  gem "rails_autoscale_agent"
+
+  # Use S3 for Active Storage by default.
+  gem "aws-sdk-s3", require: false
+end
+
+gem "devise"
+gem "rack-cors"
+gem "sidekiq"
