@@ -44,10 +44,12 @@ group :development, :test do
   gem "ruby_jard"
   gem "faker"
   gem "rspec-rails"
+  gem "standard", require: false
+  gem "rubocop-rails", require: false
+  gem "rubocop-rspec", require: false
 end
 
 group :development do
-  gem "standard"
   gem "web-console"
   gem "rack-mini-profiler"
 end
