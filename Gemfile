@@ -20,6 +20,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 
 gem "redis", "~> 4.0"
+gem "cable_ready", "5.0.0.pre9"
 gem "hiredis"
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
@@ -42,7 +43,10 @@ gem "bootsnap", require: false
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
+  gem "pry"
+  gem "pry-stack_explorer"
   gem "ruby_jard"
+  gem "awesome_print"
   gem "faker"
   gem "rspec-rails"
   gem "standard", require: false
@@ -75,3 +79,7 @@ end
 gem "devise"
 gem "rack-cors"
 gem "sidekiq"
+gem "cancancan"
+gem "fastimage"
+gem "active_hash", github: "bullet-train-co/active_hash"
+gem "bullet_train-roles"
