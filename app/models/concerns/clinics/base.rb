@@ -2,7 +2,7 @@ module Clinics::Base
   extend ActiveSupport::Concern
 
   included do
-    # memberships and invitations
+    # memberships
     has_many :memberships, dependent: :destroy
     has_many :users, through: :memberships
 
@@ -29,6 +29,10 @@ module Clinics::Base
 
   def invalidate_caches
     users.map(&:invalidate_ability_cache)
+  end
+
+  def physicians
+    memberships.current.physicians
   end
 
   def clinic

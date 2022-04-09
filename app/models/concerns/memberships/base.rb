@@ -15,6 +15,8 @@ module Memberships::Base
     end
 
     scope :current, -> { where.not(user_id: nil) }
+    scope :admins, -> { where(role_ids: ["admin"]) }
+    scope :physicians, -> { where(role_ids: ["physician"]) }
   end
 
   def name
@@ -27,6 +29,10 @@ module Memberships::Base
 
   def admin?
     role_ids.include? "admin"
+  end
+
+  def physician?
+    role_ids.include? "physician"
   end
 
   # we overload this method so that when setting the list of role ids

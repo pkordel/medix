@@ -11,7 +11,12 @@ module Users::Base
     belongs_to :current_clinic, class_name: "Clinic", optional: true
     accepts_nested_attributes_for :current_clinic
 
-    validates :time_zone, inclusion: {in: ActiveSupport::TimeZone.all.map(&:name)}, allow_nil: true
+    # validations
+    validates :time_zone, inclusion: {in: ActiveSupport::TimeZone.all.map(&:name)}, allow_nil: true\
+
+    # scopes
+
+    # callbacks
     after_update :set_clinics_time_zone
   end
 
