@@ -2,9 +2,6 @@ module Memberships::Base
   extend ActiveSupport::Concern
 
   included do
-    # See `docs/permissions.md` for details.
-    include Roles::Support
-
     belongs_to :user, optional: true
     belongs_to :team
 
@@ -28,12 +25,16 @@ module Memberships::Base
     full_name
   end
 
+  def admin?
+    role_ids.include? "admin"
+  end
+
   # we overload this method so that when setting the list of role ids
   # associated with a membership, admins can never remove the last admin
   # of a team.
   def role_ids=(ids)
     # if this membership was an admin, and the new list of role ids don't include admin.
-    if admin? && ids.exclude?(Role.admin.id)
+    if admin? && ids.exclude?("admin")
       unless team.admins.count > 1
         raise RemovingLastTeamAdminException.new("You can't remove the last team admin.")
       end
