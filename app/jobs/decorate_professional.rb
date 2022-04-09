@@ -1,9 +1,11 @@
-class DecorateProfessional < ActiveJob::Base
+class DecorateProfessional < ApplicationJob
   queue_as :default
 
-  def perform(professional_id)
-    # professional = Professional.find_by(identifier: professional_id)
-    data = Medix::Registry.find(professional_id)
-    # professional.decorate(data)
+  def perform(model)
+    # TODO: What should this object be called?
+    # TODO: decorate method encapsulates mutations of this object.
+    # data = Medix::Registry.find(model.identifier)
+    # model.decorate(data)
+    Medix::Registry.find(model.identifier)
   end
 end

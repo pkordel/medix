@@ -1,7 +1,7 @@
 require "hpr"
 
 module Medix
-  Professional = Struct.new(
+  Payload = Struct.new(
     :name,
     :identifier,
     :birth_date,
@@ -14,7 +14,7 @@ module Medix
 
   class Registry
     attr_reader :service, :data, :professional_data
-    
+
     def self.find(hpr_number)
       new(hpr_number).find
     end
@@ -22,10 +22,11 @@ module Medix
     def initialize(identifier)
       @service = Hpr.scraper(hpr_number: identifier)
       @data = service.approval_boxes.first
+      @professional_data = Hpr::Professional.new(data)
     end
-        
+
     def find
-      Professional.new(
+      Payload.new(
         service.name,
         service.hpr_number,
         service.birth_date,
@@ -39,10 +40,6 @@ module Medix
 
     def title
       @title ||= data.at_css("h3").text.strip
-    end
-    
-    def professional_data
-      @professional_data ||= Hpr::Professional.new(data)
     end
   end
 end
