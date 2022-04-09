@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe DecorateProfessional, type: :job do
+RSpec.describe DecorateProfessionalJob, type: :job do
   let(:model) { OpenStruct.new(name: "John Doe", identifier: 1234567) }
 
   it "fetches data" do

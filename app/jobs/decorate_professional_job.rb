@@ -1,4 +1,4 @@
-class DecorateProfessional < ApplicationJob
+class DecorateProfessionalJob < ApplicationJob
   queue_as :default
 
   def perform(model)
