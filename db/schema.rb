@@ -17,6 +17,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_08_055124) do
   create_table "clinics", force: :cascade do |t|
     t.string "name"
     t.string "slug"
+    t.string "time_zone"
+    t.string "locale"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -53,6 +55,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_08_055124) do
     t.integer "current_clinic_id"
     t.jsonb "ability_cache"
     t.string "profile_photo_id"
+    t.string "time_zone"
+    t.string "locale"
+    t.datetime "last_seen_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

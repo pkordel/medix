@@ -10,6 +10,9 @@ module Users::Base
     has_many :clinics, through: :memberships
     belongs_to :current_clinic, class_name: "Clinic", optional: true
     accepts_nested_attributes_for :current_clinic
+
+    validates :time_zone, inclusion: {in: ActiveSupport::TimeZone.all.map(&:name)}, allow_nil: true
+    after_update :set_clinics_time_zone
   end
 
   def label_string
@@ -76,5 +79,11 @@ module Users::Base
     # we use email_was so they can't try setting their email to the email of an admin.
     return false unless email_was
     ENV["DEVELOPER_EMAILS"].split(",").include?(email_was)
+  end
+
+  def set_clinics_time_zone
+    clinics.where(time_zone: nil).find_each do |clinic|
+      clinic.update(time_zone: time_zone) if clinic.users.count == 1
+    end
   end
 end

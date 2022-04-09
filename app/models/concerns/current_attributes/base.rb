@@ -3,12 +3,22 @@ module CurrentAttributes::Base
 
   included do
     attribute :user, :clinic, :membership, :ability
+
+    resets do
+      Time.zone = nil
+    end
   end
 
   def user=(user)
     super
 
-    self.ability = Ability.new(user) if user.present?
+    if user.present?
+      Time.zone = user.time_zone
+      self.ability = Ability.new(user)
+    else
+      Time.zone = nil
+      self.ability = nil
+    end
 
     update_membership
   end

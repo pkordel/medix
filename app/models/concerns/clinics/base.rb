@@ -8,6 +8,7 @@ module Clinics::Base
 
     # validations
     validates :name, presence: true
+    validates :time_zone, inclusion: {in: ActiveSupport::TimeZone.all.map(&:name)}, allow_nil: true
   end
 
   def admins
