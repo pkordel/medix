@@ -9,7 +9,7 @@ module Medix
     :title,
     :approved?,
     :specializations,
-    :qualifications
+    :additional_expertise
   )
 
   class Registry
@@ -33,8 +33,8 @@ module Medix
         service.deceased_date,
         title,
         professional_data.approved?,
-        professional_data.specials.map(&:name),
-        professional_data.additional_expertise.map(&:name)
+        professional_data.specials,
+        professional_data.additional_expertise
       )
     end
 

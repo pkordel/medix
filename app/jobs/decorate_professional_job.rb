@@ -1,11 +1,13 @@
 class DecorateProfessionalJob < ApplicationJob
   queue_as :default
 
-  def perform(model)
-    # TODO: What should this object be called?
-    # TODO: decorate method encapsulates mutations of this object.
-    # data = Medix::Registry.find(model.identifier)
-    # model.decorate(data)
-    Medix::Registry.find(model.identifier)
+  def perform(profile)
+    data = Medix::Registry.find(profile.identifier)
+    profile.update(
+      title: data.title,
+      approved: data.approved?,
+      specializations: data.specializations,
+      additional_expertise: data.additional_expertise
+    )
   end
 end

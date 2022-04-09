@@ -4,6 +4,7 @@ module Memberships::Base
   included do
     belongs_to :user, optional: true
     belongs_to :clinic
+    belongs_to :current_profile, class_name: "Profile", optional: true
 
     after_destroy do
       # if we're destroying a user's membership to the clinic they have set as
@@ -15,8 +16,9 @@ module Memberships::Base
     end
 
     scope :current, -> { where.not(user_id: nil) }
-    scope :admins, -> { where(role_ids: ["admin"]) }
-    scope :physicians, -> { where(role_ids: ["physician"]) }
+    scope :admins, -> { where(role_ids: [Role.admin]) }
+    scope :physicians, -> { where(role_ids: [Role.physician]) }
+    scope :patients, -> { where(role_ids: [Role.patient]) }
   end
 
   def name
@@ -28,11 +30,15 @@ module Memberships::Base
   end
 
   def admin?
-    role_ids.include? "admin"
+    role_ids.include? Role.admin
   end
 
   def physician?
-    role_ids.include? "physician"
+    role_ids.include? Role.physician
+  end
+
+  def patient?
+    role_ids.include? Role.patient
   end
 
   # we overload this method so that when setting the list of role ids
@@ -111,6 +117,12 @@ module Memberships::Base
 
   def first_name_last_initial
     [first_name, last_initial].map(&:present?).join(" ")
+  end
+
+  def approved?
+    return false if current_profile.blank?
+
+    current_profile.approved?
   end
 
   # TODO utilize this.

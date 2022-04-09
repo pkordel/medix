@@ -10,10 +10,10 @@ editor:
 
 admin:
   includes:
-    - editor
+    - physician
   manageable_roles:
     - admin
-    - editor
+    - physician
   models:
     Clinic: manage
     Membership: manage

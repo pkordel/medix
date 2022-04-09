@@ -7,6 +7,7 @@ class CreateMemberships < ActiveRecord::Migration[7.0]
       t.string :user_last_name
       t.string :user_profile_photo_id
       t.string :user_email
+      t.integer :current_profile_id
       t.jsonb :role_ids, array: true, default: []
 
       t.timestamps
