@@ -2,7 +2,7 @@ module CurrentAttributes::Base
   extend ActiveSupport::Concern
 
   included do
-    attribute :user, :team, :membership, :ability
+    attribute :user, :clinic, :membership, :ability
   end
 
   def user=(user)
@@ -13,14 +13,14 @@ module CurrentAttributes::Base
     update_membership
   end
 
-  def team=(team)
+  def clinic=(clinic)
     super
     update_membership
   end
 
   def update_membership
-    self.membership = if user && team
-      user.memberships.where(team: team)
+    self.membership = if user && clinic
+      user.memberships.where(clinic: clinic)
     end
   end
 end

@@ -1,4 +1,4 @@
-module Teams::Base
+module Clinics::Base
   extend ActiveSupport::Concern
 
   included do
@@ -30,9 +30,9 @@ module Teams::Base
     users.map(&:invalidate_ability_cache)
   end
 
-  def team
-    # some generic features appeal to the `team` method for security or scoping purposes, but sometimes those same
-    # generic functions need to function for a team model as well, so we do this.
+  def clinic
+    # some generic features appeal to the `clinic` method for security or scoping purposes, but sometimes those same
+    # generic functions need to function for a clinic model as well, so we do this.
     self
   end
 end

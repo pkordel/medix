@@ -3,13 +3,13 @@ module Memberships::Base
 
   included do
     belongs_to :user, optional: true
-    belongs_to :team
+    belongs_to :clinic
 
     after_destroy do
-      # if we're destroying a user's membership to the team they have set as
+      # if we're destroying a user's membership to the clinic they have set as
       # current, then we need to remove that so they don't get an error.
-      if user&.current_team == team
-        user.current_team = nil
+      if user&.current_clinic == clinic
+        user.current_clinic = nil
         user.save
       end
     end
@@ -31,12 +31,12 @@ module Memberships::Base
 
   # we overload this method so that when setting the list of role ids
   # associated with a membership, admins can never remove the last admin
-  # of a team.
+  # of a clinic.
   def role_ids=(ids)
     # if this membership was an admin, and the new list of role ids don't include admin.
     if admin? && ids.exclude?("admin")
-      unless team.admins.count > 1
-        raise RemovingLastTeamAdminException.new("You can't remove the last team admin.")
+      unless clinic.admins.count > 1
+        raise RemovingLastClinicAdminException.new("You can't remove the last clinic admin.")
       end
     end
 
@@ -46,12 +46,12 @@ module Memberships::Base
   def last_admin?
     return false unless admin?
     return false if user.blank?
-    team.memberships.current.select(&:admin?) == [self]
+    clinic.memberships.current.select(&:admin?) == [self]
   end
 
   def nullify_user
     if last_admin?
-      raise RemovingLastTeamAdminException.new("You can't remove the last team admin.")
+      raise RemovingLastClinicAdminException.new("You can't remove the last clinic admin.")
     end
 
     if (user_was = user)
@@ -77,7 +77,7 @@ module Memberships::Base
       user_was.invalidate_ability_cache
 
       user_was.update(
-        current_team: user_was.teams.first
+        current_clinic: user_was.clinics.first
       )
     end
   end
