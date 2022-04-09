@@ -32,8 +32,8 @@ module Medix
         service.deceased_date,
         title,
         professional_data.approved?,
-        specializations,
-        additional_expertise
+        professional_data.specials.map(&:name),
+        professional_data.additional_expertise.map(&:name)
       )
     end
 
@@ -43,14 +43,6 @@ module Medix
     
     def professional_data
       @professional_data ||= Hpr::Professional.new(data)
-    end
-    
-    def specializations
-      @specializations ||= professional_data.specials.map(&:name)
-    end
-    
-    def additional_expertise
-      @additional_expertise ||= professional_data.additional_expertise.map(&:name)
     end
   end
 end
