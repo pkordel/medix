@@ -63,12 +63,12 @@ module Users::Base
     value = send(through).with_role(role).distinct.pluck(parent_id_column)
     current_cache = ability_cache || {}
     current_cache[key] = value
-    update_column :ability_cache, current_cache
+    update_column :ability_cache, current_cache # rubocop:disable Rails/SkipsModelValidations
     value
   end
 
   def invalidate_ability_cache
-    update_column(:ability_cache, {})
+    update_column(:ability_cache, {}) # rubocop:disable Rails/SkipsModelValidations
   end
 
   def developer?

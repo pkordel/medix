@@ -37,6 +37,9 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.0]
       t.integer :current_clinic_id
       t.jsonb :ability_cache
       t.string :profile_photo_id
+      t.string :time_zone
+      t.string :locale
+      t.datetime :last_seen_at
     end
 
     add_index :users, :email, unique: true
