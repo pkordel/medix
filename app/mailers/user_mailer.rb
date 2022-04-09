@@ -14,9 +14,9 @@ class UserMailer < ApplicationMailer
     return if @invitation.nil?
     @cta_url = accept_account_invitation_url(@invitation.uuid)
     @values = {
-      # Just in case the inviting user has been removed from the team...
+      # Just in case the inviting user has been removed from the clinic...
       inviter_name: @invitation.from_membership&.user&.full_name || @invitation.from_membership.name,
-      team_name: @invitation.team.name
+      clinic_name: @invitation.clinic.name
     }
     mail(to: @invitation.email, subject: I18n.t("user_mailer.invited.subject", **@values))
   end

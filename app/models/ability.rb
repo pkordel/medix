@@ -6,7 +6,7 @@ class Ability
       can :manage, User, id: user.id
       can :destroy, Membership, user_id: user.id
 
-      can :create, Team
+      can :create, Clinic
     end
   end
 end

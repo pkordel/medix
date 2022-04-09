@@ -5,11 +5,11 @@ module Users::Base
     devise :database_authenticatable, :registerable,
       :recoverable, :rememberable, :trackable, :validatable
 
-    # teams
+    # clinics
     has_many :memberships, dependent: :destroy
-    has_many :teams, through: :memberships
-    belongs_to :current_team, class_name: "Team", optional: true
-    accepts_nested_attributes_for :current_team
+    has_many :clinics, through: :memberships
+    belongs_to :current_clinic, class_name: "Clinic", optional: true
+    accepts_nested_attributes_for :current_clinic
   end
 
   def label_string
@@ -25,26 +25,26 @@ module Users::Base
   end
 
   def details_provided?
-    first_name.present? && last_name.present? && current_team.name.present?
+    first_name.present? && last_name.present? && current_clinic.name.present?
   end
 
   def send_welcome_email
     UserMailer.welcome(self).deliver_later
   end
 
-  def create_default_team
-    # This creates a `Membership`, because `User` `has_many :teams, through: :memberships`
-    default_team = teams.create(name: "Your Team")
-    memberships.find_by(team: default_team).update role_ids: ["admin"]
-    update(current_team: default_team)
+  def create_default_clinic
+    # This creates a `Membership`, because `User` `has_many :clinics, through: :memberships`
+    default_clinic = clinics.create(name: "Your Clinic")
+    memberships.find_by(clinic: default_clinic).update role_ids: ["admin"]
+    update(current_clinic: default_clinic)
   end
 
-  def multiple_teams?
-    teams.count > 1
+  def multiple_clinics?
+    clinics.count > 1
   end
 
-  def one_team?
-    !multiple_teams?
+  def one_clinic?
+    !multiple_clinics?
   end
 
   def formatted_email_address

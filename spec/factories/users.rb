@@ -4,7 +4,7 @@ FactoryBot.define do
     password { "08h4f78hrc0ohw9f8heso" }
     password_confirmation { "08h4f78hrc0ohw9f8heso" }
     after(:create) do |user|
-      user.create_default_team
+      user.create_default_clinic
     end
   end
 end
