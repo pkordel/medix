@@ -2,8 +2,6 @@ module Users::Base
   extend ActiveSupport::Concern
 
   included do
-    include Roles::User
-
     devise :database_authenticatable, :registerable,
       :recoverable, :rememberable, :trackable, :validatable
 
@@ -36,9 +34,8 @@ module Users::Base
 
   def create_default_team
     # This creates a `Membership`, because `User` `has_many :teams, through: :memberships`
-    # TODO The team name should take into account the user's current locale.
     default_team = teams.create(name: "Your Team")
-    memberships.find_by(team: default_team).update role_ids: [Role.admin.id]
+    memberships.find_by(team: default_team).update role_ids: ["admin"]
     update(current_team: default_team)
   end
 
@@ -56,10 +53,6 @@ module Users::Base
     else
       email
     end
-  end
-
-  def administrating_team_ids
-    parent_ids_for(Role.admin, :memberships, :team)
   end
 
   def parent_ids_for(role, through, parent)

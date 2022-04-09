@@ -1,11 +1,4 @@
 GIT
-  remote: https://github.com/bullet-train-co/active_hash.git
-  revision: a6628bc65e7c099ec9428c2bfe1e292ef01f1ef1
-  specs:
-    active_hash (3.1.0)
-      activesupport (>= 5.0.0)
-
-GIT
   remote: https://github.com/legelisten/hpr.git
   revision: b9f2fe944a8363ab4975a41175dfabde186ceca3
   branch: ruby-3
@@ -109,10 +102,6 @@ GEM
     bootsnap (1.11.1)
       msgpack (~> 1.2)
     builder (3.2.4)
-    bullet_train-roles (0.1.6)
-      active_hash
-      activesupport
-      cancancan
     byebug (11.1.3)
     cable_ready (5.0.0.pre9)
       actioncable (>= 5.2)
@@ -168,7 +157,6 @@ GEM
       railties (>= 5.0.0)
     faker (2.20.0)
       i18n (>= 1.8.11, < 2)
-    fastimage (2.2.6)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hiredis (0.6.3)
@@ -398,11 +386,9 @@ PLATFORMS
   x86_64-darwin-20
 
 DEPENDENCIES
-  active_hash!
   awesome_print
   aws-sdk-s3
   bootsnap
-  bullet_train-roles
   cable_ready (= 5.0.0.pre9)
   cancancan
   capybara
@@ -412,7 +398,6 @@ DEPENDENCIES
   devise
   factory_bot_rails
   faker
-  fastimage
   hiredis
   hpr!
   importmap-rails
