@@ -208,3 +208,8 @@ nb:
   search_field_button: Søk
 
   blacklisted: This domain is blocked
+  
+  application:
+    name: "Medix"
+    keywords: "keywords"
+    description: "description"

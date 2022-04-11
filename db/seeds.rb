@@ -44,6 +44,7 @@ johns_physician = User.create(
 
 physician_profile = Profile.create(
   title: "Physician",
+  full_name: "Doctor Doom",
   identifier: "123456789",
   approved: true,
   specializations: [{name: "Proctology", period: "2020-10-20..2065-06-17"}],
@@ -51,6 +52,7 @@ physician_profile = Profile.create(
 )
 dentist_profile = Profile.create(
   title: "Dentist",
+  full_name: "Doctor Dread",
   identifier: "987654321",
   approved: true,
   specializations: [{name: "Orthodontist", period: "2020-10-20..2065-06-17"}],
