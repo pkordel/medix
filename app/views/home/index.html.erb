@@ -1,1 +1,15 @@
-<h1>public/home/index.html.erb</h1>
+<h1><%= t("health_professionals.title") %></h1>
+
+<%= form_with(url: root_path, method: "GET") do |form| %>
+  <%= form.label :query, t("health_professionals.search.prompt") %>
+  <%= form.text_field :query %>
+  <%= form.submit t("health_professionals.search.submit"), name: nil %>
+<% end %>
+<div id="professionals">
+  <% @professionals.each do |professional| %>
+    <%= render professional %>
+    <p>
+      <%= link_to t("health_professionals.search.show"), professional %>
+    </p>
+  <% end %>
+</div>
