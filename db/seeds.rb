@@ -6,10 +6,6 @@ johns = Clinic.create(
   name: "Johns Hopkins Hospital", slug: "johns-hopkins-hospital",
   time_zone: "Eastern Time (US & Canada)", locale: "en"
 )
-mayo = Clinic.create(
-  name: "Mayo Clinic", slug: "mayo-clinic",
-  time_zone: "Eastern Time (US & Canada)", locale: "en"
-)
 
 ucla_admin = User.create(
   email: "ucla@example.com", first_name: "Admin", last_name: "Ucla",
@@ -17,17 +13,38 @@ ucla_admin = User.create(
 )
 johns_admin = User.create(
   email: "johns@example.com", first_name: "Admin", last_name: "Johns",
-  current_clinic: mayo, password: "password", password_confirmation: "password"
+  current_clinic: johns, password: "password", password_confirmation: "password"
 )
-mayo_admin = User.create(
-  email: "mayo@example.com", first_name: "Admin", last_name: "Mayo",
-  current_clinic: mayo, password: "password", password_confirmation: "password"
+
+ucla_physician = User.create(
+  email: "ucla_physician@example.com", first_name: "Doctor", last_name: "Dread",
+  current_clinic: ucla, password: "password", password_confirmation: "password"
+)
+johns_physician = User.create(
+  email: "johns_physician@example.com", first_name: "Doctor", last_name: "Doom",
+  current_clinic: johns, password: "password", password_confirmation: "password"
+)
+
+physician_profile = Profile.create(
+  title: "Physician",
+  identifier: "123456789",
+  approved: true,
+  specializations: [{name: "Proctology", period: "2020-10-20..2065-06-17"}],
+  additional_expertise: [{name: "Sick leave certifications", period: "2020-10-20..2065-06-17"}]
+)
+dentist_profile = Profile.create(
+  title: "Dentist",
+  identifier: "987654321",
+  approved: true,
+  specializations: [{name: "Orthodontist", period: "2020-10-20..2065-06-17"}],
+  additional_expertise: []
 )
 
 Membership.create(
   [
-    {user: ucla_admin, clinic: ucla, role_ids: ["admin"]},
-    {user: johns_admin, clinic: johns, role_ids: ["admin"]},
-    {user: mayo_admin, clinic: mayo, role_ids: ["admin"]}
+    {user: ucla_admin, clinic: ucla, role_ids: [Role.admin]},
+    {user: ucla_physician, clinic: ucla, role_ids: [Role.physician], current_profile: physician_profile},
+    {user: johns_admin, clinic: johns, role_ids: [Role.admin]},
+    {user: johns_physician, clinic: johns, role_ids: [Role.physician], current_profile: dentist_profile}
   ]
 )

@@ -1,10 +1,23 @@
 require "rails_helper"
 
 RSpec.describe DecorateProfessionalJob, type: :job do
-  let(:model) { OpenStruct.new(name: "John Doe", identifier: 1234567) }
+  let(:model) { create(:profile) }
+  let(:payload) do
+    OpenStruct.new(
+      title: "Physician",
+      identifier: model.identifier,
+      approved: false,
+      specializations: [{name: "Proctology"}]
+    )
+  end
 
-  it "fetches data" do
-    allow(Medix::Registry).to receive(:find).with(1234567).and_return(model)
-    expect(described_class.perform_now(model)).to eq model
+  before do
+    allow(Medix::Registry).to receive(:find).with(model.identifier).and_return(payload)
+  end
+
+  it "fetches data" do # rubocop:disable RSpec/MultipleExpectations
+    described_class.perform_now(model)
+    expect(model.title).to eq(payload.title)
+    expect(model.approved).to be_falsey
   end
 end
