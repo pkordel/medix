@@ -37,6 +37,10 @@ en:
   health_professionals:
     title: "Health Professionals"
     search:
-      prompt: "Search by name:"
+      prompt: "Search:"
+      placeholder: "Search by name"
       submit: "Search"
       show: "Show this professional"
+  profiles:
+    approved: Approved
+    denied: Not approved
