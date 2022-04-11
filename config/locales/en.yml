@@ -30,4 +30,17 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  application:
+    name: "Medix"
+    keywords: "keywords"
+    description: "description"
+  health_professionals:
+    title: "Health Professionals"
+    search:
+      prompt: "Search:"
+      placeholder: "Search by name"
+      submit: "Search"
+      show: "Show this professional"
+  profiles:
+    approved: Approved
+    denied: Not approved

@@ -40,6 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_09_083830) do
 
   create_table "profiles", force: :cascade do |t|
     t.string "title"
+    t.string "full_name"
     t.string "identifier"
     t.boolean "approved"
     t.jsonb "specializations", default: []

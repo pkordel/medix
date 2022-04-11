@@ -5,6 +5,7 @@ class DecorateProfessionalJob < ApplicationJob
     data = Medix::Registry.find(profile.identifier)
     profile.update(
       title: data.title,
+      full_name: data.name,
       approved: data.approved?,
       specializations: data.specializations,
       additional_expertise: data.additional_expertise

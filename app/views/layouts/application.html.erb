@@ -1,8 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Medix</title>
+  <% if content_for? :title %>
+    <%= yield :title %>
+  <% elsif @title.present? %>
+    <title><%= @title %> | <%= t('application.name') %></title>
+  <% else %>
+    <title><%= t('application.name') %></title>
+  <% end %>
+    
+    <meta charset="utf-8" />
+    <meta content="ie=edge" http-equiv="x-ua-compatible" />
+    <meta content="<%= t('application.keywords') %>" name="keywords" />
+    <meta content="<%= t('application.description') %>" name="description" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
