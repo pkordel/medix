@@ -1,3 +1,20 @@
+clinics = [
+  "Ullevål Universitetssykehus",
+  "Rikshospitalet Hf",
+  "Diakonhjemmet Sykehus",
+  "Lovisenberg Diakonale Sykehus",
+  "Colosseumklinikken Legeavdeling",
+  "St. Hanshaugen",
+  "Oslo Universitetssykehus Hf"
+]
+timezone = "Stockholm"
+locale = "nb"
+Clinic.create(
+  clinics.each_with_object([]) do |clinic, memo|
+    memo << {name: clinic, slug: clinic.parameterize, time_zone: timezone, locale: locale}
+  end
+)
+
 ucla = Clinic.create(
   name: "UCLA Medical Center", slug: "ucla-medical-center",
   time_zone: "Pacific Time (US & Canada)", locale: "en"
